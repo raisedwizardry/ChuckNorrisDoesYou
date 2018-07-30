@@ -1,6 +1,6 @@
 const jokeList = document.getElementById("jokeList");
-const well = document.getElementById("well");
-well.addEventListener('click', function (e) {
+const jokeClickp = document.getElementById("jokeclick");
+jokeClickp.addEventListener('click', function (e) {
     let target = e.target;
     createJokes(3);
     console.log(e.target);
@@ -9,16 +9,15 @@ well.addEventListener('click', function (e) {
 function createJokes(number1) {
     let jokeData = urlCall(number1);
     let jokesdiv = document.getElementById("jokes");
-    jokesdiv.append(showJokeCount(jokeData.length));
+    jokeClickp.innerHTML = showJokeCount(jokeData.length);
     for (var i = 0; i < jokeData.length; i++) {
         var obj = jokeData[i];
-        jokesList.append(listJokes(obj));
+        jokesList.appendChild(listJokes(obj));
     }
 };
 
 function showJokeCount(jokeN) {
-    let jokeCount = document.createElement("p");
-    jokeCount.innerHTML = "Here are " + jokeN + " Chuck Norris Jokes";
+    let jokeCount = "Here are " + jokeN + " Chuck Norris Jokes. Click for more";
     return jokeCount;
 };
 
