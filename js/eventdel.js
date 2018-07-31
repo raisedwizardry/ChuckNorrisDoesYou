@@ -22,6 +22,8 @@ function showJokeCount(jokeN) {
 };
 
 function listJokes(jokeObject) {
+
+    returnTrue();
     let jokeli = document.createElement("li");
     jokeli.id = jokeObject.id;
     jokeli.innerHTML = jokeObject.joke;
@@ -34,6 +36,15 @@ function urlCall(jokesN) {
     let storeJokes = doAjax(chuckApi);
     console.log(storeJokes);
     return storeJokes.responseJSON.value;
+};
+
+
+async function returnTrue() {
+    let promise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve(true), 1000) // resolve
+    });
+    let result = await promise;
+    console.log(result);
 };
 
 function doAjax(ajaxurl) {

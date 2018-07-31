@@ -1,23 +1,48 @@
-.Aligner {
+.HolyGrail {
   display: flex;
-  align-items: center;
-  min-height: 24em;
-  justify-content: center;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.Aligner-item {
+.HolyGrail-body {
+  display: flex;
   flex: 1;
 }
 
-.Aligner-item--top {
-  align-self: flex-start;
+.HolyGrail-content {
+  flex: 1;
 }
 
-.Aligner-item--bottom {
-  align-self: flex-end;
+.HolyGrail-nav, .HolyGrail-ads {
+  /* 12em is the width of the columns */
+  flex: 0 0 12em;
 }
 
-.Aligner-item--fixed {
-  flex: none;
-  max-width: 70%;
+.HolyGrail-nav {
+  /* put the nav on the left */
+  order: -1;
+}
+
+.HolyGrail,
+.HolyGrail-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.HolyGrail-nav {
+  order: -1;
+}
+
+@media (min-width: 768px) {
+  .HolyGrail-body {
+    flex-direction: row;
+    flex: 1;
+  }
+  .HolyGrail-content {
+    flex: 1;
+  }
+  .HolyGrail-nav, .HolyGrail-ads {
+    /* 12em is the width of the columns */
+    flex: 0 0 12em;
+  }
 }
