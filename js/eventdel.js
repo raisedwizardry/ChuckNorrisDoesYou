@@ -1,19 +1,21 @@
+const jokesdiv = document.getElementById("jokes");
 const jokeList = document.getElementById("jokeList");
 const jokeClickp = document.getElementById("jokeclick");
 jokeClickp.addEventListener('click', function (e) {
     let target = e.target;
     createJokes(3);
-    console.log(e.target);
 });
 
 function createJokes(number1) {
-    let jokeData = urlCall(number1);
-    let jokesdiv = document.getElementById("jokes");
-    jokeClickp.innerHTML = showJokeCount(jokeData.length);
-    for (var i = 0; i < jokeData.length; i++) {
-        var obj = jokeData[i];
-        jokesList.appendChild(listJokes(obj));
-    }
+    fetchAsync(number1)
+        .then(data => {
+            jokeClickp.innerHTML = showJokeCount(data.value.length);
+            for (var i = 0; i < data.value.length; i++) {
+                var obj = data.value[i];
+                jokesList.appendChild(listJokes(obj));
+            }
+        })
+        .catch(reason => console.log(reason.message))
 };
 
 function showJokeCount(jokeN) {
@@ -22,46 +24,16 @@ function showJokeCount(jokeN) {
 };
 
 function listJokes(jokeObject) {
-
-    returnTrue();
     let jokeli = document.createElement("li");
     jokeli.id = jokeObject.id;
     jokeli.innerHTML = jokeObject.joke;
-    console.log(jokeli);
     return jokeli;
 };
 
-function urlCall(jokesN) {
-    let chuckApi = 'http://api.icndb.com/jokes/random/' + jokesN;
-    let storeJokes = doAjax(chuckApi);
-    console.log(storeJokes);
-    return storeJokes.responseJSON.value;
-};
-
-
-async function returnTrue() {
-    let promise = new Promise((resolve, reject) => {
-        setTimeout(() => resolve(true), 1000) // resolve
-    });
-    let result = await promise;
-    console.log(result);
-};
-
-function doAjax(ajaxurl) {
-    let result;
-    try {
-        result = $.ajax({
-            url: ajaxurl,
-            headers: { 'Accept': 'application/json' },
-            success: function (result) {
-                if (result.isOk == false) alert(result.message);
-            },
-            async: false,
-        });
-        return result;
-    } catch (error) {
-        console.error(error);
-    }
+async function fetchAsync(jokesN) {
+    let response = await fetch('http://api.icndb.com/jokes/random/' + jokesN);
+    let data = await response.json();
+    return data;
 };
 
 function createUrl(endpoint, prop, val) {
