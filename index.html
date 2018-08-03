@@ -6,16 +6,22 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
   <body class="HolyGrail">
-    <header></header>
+    <header class="HolyGrail-header">
+      <h1>Chuck Norris</h1>
+    </header>
     <div id="jokes" class="HolyGrail-body">
-      <div class="Aligner-item Aligner-item--top"></div>
       <main class="HolyGrail-content">
         <p id="jokeclick">Click here for some jokes</p>
-        <ul id="jokesList">
-        </ul>
+        <div class="wrapper">
+          <label for="text">How many jokes do you want?: </label>
+          <input id="text" type="text">
+          <input id="enterjokes" type="submit" value="Send">
+        </div>
       </main>
       <nav class="HolyGrail-nav"></nav>
-      <aside class="HolyGrail-ads"></aside>
+      <aside class="HolyGrail-ads">
+        <ul id="jokesList"></ul>
+      </aside>
     </div>
     <footer></footer>
     <script src="js/eventdel.js"></script>

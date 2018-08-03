@@ -1,28 +1,4 @@
-.HolyGrail {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.HolyGrail-body {
-  display: flex;
-  flex: 1;
-}
-
-.HolyGrail-content {
-  flex: 1;
-}
-
-.HolyGrail-nav, .HolyGrail-ads {
-  /* 12em is the width of the columns */
-  flex: 0 0 12em;
-}
-
-.HolyGrail-nav {
-  /* put the nav on the left */
-  order: -1;
-}
-
+/* https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/ */
 .HolyGrail,
 .HolyGrail-body {
   display: flex;
@@ -33,6 +9,15 @@
   order: -1;
 }
 
+.wrapper {
+	display: flex;
+	border: 1px solid rgb(96, 139, 168);
+}
+
+.wrapper input[type="text"] {
+	flex: 1 1 auto;
+}
+
 @media (min-width: 768px) {
   .HolyGrail-body {
     flex-direction: row;
@@ -41,8 +26,18 @@
   .HolyGrail-content {
     flex: 1;
   }
-  .HolyGrail-nav, .HolyGrail-ads {
+  .HolyGrail-nav {
     /* 12em is the width of the columns */
-    flex: 0 0 12em;
+    flex: 0 0 10em;
+  }
+  .HolyGrail-ads {
+    /* 12em is the width of the columns */
+    border-left: 3px solid black;
+    flex: 0 0 44%;
+  }
+  .HolyGrail-header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 20px;
   }
 }

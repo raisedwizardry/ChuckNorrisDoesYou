@@ -1,9 +1,14 @@
 const jokesdiv = document.getElementById("jokes");
 const jokeList = document.getElementById("jokeList");
 const jokeClickp = document.getElementById("jokeclick");
+const enterjokes = document.getElementById("enterjokes")
 jokeClickp.addEventListener('click', function (e) {
     let target = e.target;
     createJokes(3);
+});
+enterjokes.addEventListener('click', function (e) {
+    let target = e.target;
+    enterJokes();
 });
 
 function createJokes(number1) {
@@ -21,6 +26,12 @@ function createJokes(number1) {
 function showJokeCount(jokeN) {
     let jokeCount = "Here are " + jokeN + " Chuck Norris Jokes. Click for more";
     return jokeCount;
+};
+
+function enterJokes(){
+    let text = document.getElementById("text").value;
+    console.log(text);
+    createJokes(text);
 };
 
 function listJokes(jokeObject) {
