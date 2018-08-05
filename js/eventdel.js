@@ -1,19 +1,19 @@
-const jokesdiv = document.getElementById("jokes");
-const jokeList = document.getElementById("jokeList");
+//http://api.icndb.com/jokes/random/2?firstName=John&lastName=Doe
 const jokeClickp = document.getElementById("jokeclick");
 const enterjokes = document.getElementById("enterjokes")
-jokeClickp.addEventListener('click', function (e) {
-    let target = e.target;
-    createJokes(3);
-});
-enterjokes.addEventListener('click', function (e) {
-    let target = e.target;
-    enterJokes();
-});
+enterjokes.addEventListener('click', enterJokes);
 
-function createJokes(number1) {
-    fetchAsync(number1)
+function enterJokes(e){
+    let jokeN = document.getElementById("joken").value;
+    let firstN = document.getElementById("firstn").value;
+    let lastN = document.getElementById("lastn").value;
+    createJokes(jokesUrlCreator(jokeN, firstN, lastN));
+};
+
+function createJokes(url) {
+    fetchAsync(url)
         .then(data => {
+            console.log(data)
             jokeClickp.innerHTML = showJokeCount(data.value.length);
             for (var i = 0; i < data.value.length; i++) {
                 var obj = data.value[i];
@@ -28,12 +28,6 @@ function showJokeCount(jokeN) {
     return jokeCount;
 };
 
-function enterJokes(){
-    let text = document.getElementById("text").value;
-    console.log(text);
-    createJokes(text);
-};
-
 function listJokes(jokeObject) {
     let jokeli = document.createElement("li");
     jokeli.id = jokeObject.id;
@@ -41,13 +35,27 @@ function listJokes(jokeObject) {
     return jokeli;
 };
 
-async function fetchAsync(jokesN) {
-    let response = await fetch('http://api.icndb.com/jokes/random/' + jokesN);
-    let data = await response.json();
-    return data;
+function jokesUrlCreator(jokesN, firstN, lastN) {
+    let endPoint = 'http://api.icndb.com/jokes/random/' + jokesN;
+    let jokesUrl = urlHelper(endPoint, "firstName", firstN, "lastName", lastN);
+    return jokesUrl;
 };
 
-function createUrl(endpoint, prop, val) {
+function urlHelper(endpoint, prop, val, ...pairs) {
     let url = endpoint + '?' + prop + '=' + val;
+    if (pairs.length > 1) {
+        for (var i=0; i < pairs.length; i++) {
+            if (i % 2 == 0) {
+                url = url + '&' + pairs[i] + '=' + pairs[i+1];
+            }
+        }
+    }
+    console.log(url);
     return url;
+};
+
+async function fetchAsync(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    return data;
 };
