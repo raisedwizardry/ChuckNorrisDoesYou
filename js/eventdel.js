@@ -15,7 +15,7 @@ function createJokes(url) {
     fetchAsync(url)
         .then(data => {
             document.getElementById("jokeclick").innerHTML = showJokeCount(data.value.length);
-            let jokesList = document.getElementById("jokesList")
+            let jokesList = document.getElementById("jokesList");
             for (var i = 0; i < data.value.length; i++) {
                 var obj = data.value[i];
                 jokesList.appendChild(listJokes(obj));
@@ -32,9 +32,21 @@ function showJokeCount(jokeN) {
 function listJokes(jokeObject) {
     let jokeli = document.createElement("li");
     jokeli.id = jokeObject.id;
-    jokeli.innerHTML = jokeObject.joke;
+    jokeli.appendChild(addLink(jokeObject.joke));
     return jokeli;
 };
+
+function addLink(joketext) {
+    let jokeA = document.createElement("a");
+    jokeA.innerHTML = joketext;
+    jokeA.addEventListener("click", clickLink);
+    console.log(jokeA)
+    return jokeA;
+}
+
+function clickLink(e) {
+    console.log(e.target.parentNode.id);
+}
 
 function jokesUrlCreator(jokesN, firstN, lastN) {
     let endPoint, jokesUrl;
